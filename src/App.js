@@ -3,25 +3,30 @@ import './App.css';
 
 class App extends Component {
   state = {
-    result: ""
+    numbers: "",
+    operators: [],
+    display: "",
   }
 
   updateResult = (clickedNumber) => {
     if (!isNaN(clickedNumber)) {
       this.setState(state => ({
-        result: parseInt(state.result + String(clickedNumber))
-      }))
+        numbers: state.numbers.concat(clickedNumber),
+        display: state.display.concat(clickedNumber)
+      }), () => console.log(this.state.numbers))
     } else {
       switch (clickedNumber) {
         case "AC":
           this.setState(state => ({
-            result: 0
+            numbers: [],
+            operators: [],
+            display: "0"
           }))
           break
 
         default:
           this.setState(state => ({
-            result: state.result + " " + clickedNumber + " "
+            operators: state.operators.concat(clickedNumber)
           }))
           break
       }
@@ -34,7 +39,7 @@ class App extends Component {
     return (
       <div className="container mt-5">
         <div className="calculator">
-          <Display result={this.state.result} />
+          <Display display={this.state.display} />
           <ButtonSet updateResult={this.updateResult} />
         </div>
       </div>
