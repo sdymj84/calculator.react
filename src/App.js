@@ -3,35 +3,15 @@ import './App.css';
 
 class App extends Component {
   state = {
-    numbers: "",
+    isFirst: true,
+    numbers: [],
     operators: [],
-    display: "",
+    prevInput: "",
+    history: "12 + 35",
+    result: 47,
   }
 
-  updateResult = (clickedNumber) => {
-    if (!isNaN(clickedNumber)) {
-      this.setState(state => ({
-        numbers: state.numbers.concat(clickedNumber),
-        display: state.display.concat(clickedNumber)
-      }), () => console.log(this.state.numbers))
-    } else {
-      switch (clickedNumber) {
-        case "AC":
-          this.setState(state => ({
-            numbers: [],
-            operators: [],
-            display: "0"
-          }))
-          break
-
-        default:
-          this.setState(state => ({
-            operators: state.operators.concat(clickedNumber)
-          }))
-          break
-      }
-    }
-
+  updateResult = () => {
 
   }
 
@@ -39,7 +19,8 @@ class App extends Component {
     return (
       <div className="container mt-5">
         <div className="calculator">
-          <Display display={this.state.display} />
+          <Display history={this.state.history}
+            result={this.state.result} />
           <ButtonSet updateResult={this.updateResult} />
         </div>
       </div>
@@ -50,7 +31,12 @@ class App extends Component {
 const Display = (props) => {
   return (
     <div className="display">
-      {props.result}
+      <div className="display_history">
+        {props.history}
+      </div>
+      <div className="display_current-value">
+        {props.result}
+      </div>
     </div>
   )
 }
@@ -62,7 +48,8 @@ const ButtonSet = (props) => {
         <div key={index} className="btn btn-group p-0">
           {ButtonSet.keys[index].map((button, i) =>
             <Button key={i} updateResult={props.updateResult}
-              number={button} />
+              number={button} className={(i === 0 && (index === 0 || index === 4)) ?
+                "button two-button" : "button"} />
           )}
         </div>
       )}
@@ -71,16 +58,16 @@ const ButtonSet = (props) => {
 }
 
 ButtonSet.keys = [
-  ["AC", "?", "%", "?"],
+  ["AC", "%", "/"],
   [1, 2, 3, "x"],
   [4, 5, 6, "-"],
   [7, 8, 9, "+"],
-  [0, 0, ".", "="]
+  [0, ".", "="]
 ]
 
 const Button = (props) => {
   return (
-    <button className="button"
+    <button className={props.className}
       onClick={() => props.updateResult(props.number)}>
       {props.number}
     </button>

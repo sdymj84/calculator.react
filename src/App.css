@@ -12,6 +12,7 @@
   border: 2px solid grey;
   width: 371px;
   height: 548px;
+  line-height: 1.1;
 }
 
 .display {
@@ -19,19 +20,30 @@
   background-color: rgb(6, 21, 65);
   border: 8px solid ivory;
   color: white;
-  font-size: 3em;
   text-align: right;
-  padding: 20px;
+  padding: 10px;
+}
+
+.display_history {
+  height: 30px;
+  font-size: 1.2em;
+}
+.display_current-value {
+  font-size: 4em;
 }
 
 .button {
-  width: 85px;
+  width: 84.8px;
   height: 75px;
   border: 1px solid blue;
   background-color: beige;
   margin: 2px;
   text-align: center;
   font-size: 2.8em;
+}
+
+.two-button {
+  width: 173px;
 }
 
 .button:hover {
