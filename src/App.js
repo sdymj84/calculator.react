@@ -4,14 +4,75 @@ import './App.css';
 class App extends Component {
   state = {
     isFirst: true,
-    numbers: [],
+    numbers: "",
     operators: [],
     prevInput: "",
-    history: "12 + 35",
-    result: 47,
+    history: "",
+    result: 0,
   }
 
-  updateResult = () => {
+  calculate = () => {
+    // if no operators yet => just show number
+    if (this.state.operators.length === 0) {
+      return this.state.numbers
+    }
+
+    // if there're operators => show last element of numbers array
+    else {
+      const arrNumber = this.state.numbers.split(",")
+
+      if (this.state.numbers.slice(-1) === ",") {
+        return arrNumber[arrNumber.length - 2]
+      } else {
+        return arrNumber.pop()
+      }
+    }
+  }
+
+  makeHistory = (numbers, operators) => {
+    for (let operator of operators) {
+      numbers = numbers.replace(",", " " + operator + " ")
+    }
+    return numbers
+  }
+
+  updateDisplay = () => {
+    this.setState(state => ({
+      history: this.makeHistory(state.numbers, state.operators),
+      result: this.calculate(),
+    }))
+  }
+
+
+  updateResult = (clickedButton) => {
+    // if clicked "AC" button
+    if (clickedButton === "AC") {
+      this.setState({
+        isFirst: true,
+        numbers: "",
+        operators: [],
+        prevInput: "",
+        history: "",
+        result: 0,
+      }, this.updateDisplay)
+    }
+
+    // if clicked a NUMBER
+    else if (!isNaN(clickedButton)) {
+      let clickedNumber = clickedButton
+      this.setState(state => ({
+        numbers: state.numbers.concat(clickedNumber),
+      }), this.updateDisplay)
+    }
+
+    // if clicked a OPERATOR
+    else {
+      let clickedOperator = clickedButton
+      this.setState(state => ({
+        operators: state.operators.concat(clickedOperator),
+        numbers: state.numbers.concat(","),
+      }), this.updateDisplay)
+    }
 
   }
 
