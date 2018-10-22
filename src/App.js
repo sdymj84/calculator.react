@@ -9,23 +9,15 @@ class App extends Component {
     prevInput: "",
     history: "",
     result: 0,
+    calculatedResult: 0,
   }
 
-  calculate = () => {
-    // if no operators yet => just show number
-    if (this.state.operators.length === 0) {
-      return this.state.numbers
-    }
-
-    // if there're operators => show last element of numbers array
-    else {
-      const arrNumber = this.state.numbers.split(",")
-
-      if (this.state.numbers.slice(-1) === ",") {
-        return arrNumber[arrNumber.length - 2]
-      } else {
-        return arrNumber.pop()
-      }
+  getLastNumber = () => {
+    const arrNumber = this.state.numbers.split(",")
+    if (this.state.numbers.slice(-1) === ",") {
+      return arrNumber[arrNumber.length - 2]
+    } else {
+      return arrNumber.pop()
     }
   }
 
@@ -39,8 +31,67 @@ class App extends Component {
   updateDisplay = () => {
     this.setState(state => ({
       history: this.makeHistory(state.numbers, state.operators),
-      result: this.calculate(),
+      result: this.getLastNumber(),
     }))
+  }
+
+  updateDisplayWithCal = () => {
+    this.setState(state => {
+      const operators = state.operators
+      if (operators.length === 1) {
+        return {
+          history: this.makeHistory(state.numbers, state.operators),
+          calculatedResult: Number(this.getLastNumber()),
+          result: Number(this.getLastNumber()),
+        }
+      }
+
+      switch (operators[operators.length - 2]) {
+        case "+":
+          return {
+            history: this.makeHistory(state.numbers, state.operators),
+            calculatedResult: Number(state.calculatedResult) +
+              Number(this.getLastNumber()),
+            result: Number(state.calculatedResult) +
+              Number(this.getLastNumber()),
+          }
+        case "-":
+          return {
+            history: this.makeHistory(state.numbers, state.operators),
+            calculatedResult: Number(state.calculatedResult) -
+              Number(this.getLastNumber()),
+            result: Number(state.calculatedResult) -
+              Number(this.getLastNumber()),
+          }
+        case "x":
+          return {
+            history: this.makeHistory(state.numbers, state.operators),
+            calculatedResult: Number(state.calculatedResult) *
+              Number(this.getLastNumber()),
+            result: Number(state.calculatedResult) *
+              Number(this.getLastNumber()),
+          }
+        case "/":
+          return {
+            history: this.makeHistory(state.numbers, state.operators),
+            calculatedResult: Number(state.calculatedResult) /
+              Number(this.getLastNumber()),
+            result: Number(state.calculatedResult) /
+              Number(this.getLastNumber()),
+          }
+        case "%":
+          return {
+            history: this.makeHistory(state.numbers, state.operators),
+            calculatedResult: Number(state.calculatedResult) %
+              Number(this.getLastNumber()),
+            result: Number(state.calculatedResult) %
+              Number(this.getLastNumber()),
+          }
+        default:
+          console.log("take care of unhandled button")
+          break
+      }
+    })
   }
 
 
@@ -54,6 +105,7 @@ class App extends Component {
         prevInput: "",
         history: "",
         result: 0,
+        calculatedResult: 0,
       }, this.updateDisplay)
     }
 
@@ -71,7 +123,7 @@ class App extends Component {
       this.setState(state => ({
         operators: state.operators.concat(clickedOperator),
         numbers: state.numbers.concat(","),
-      }), this.updateDisplay)
+      }), this.updateDisplayWithCal)
     }
 
   }

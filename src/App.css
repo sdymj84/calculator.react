@@ -11,12 +11,12 @@
 .calculator {
   border: 2px solid grey;
   width: 371px;
-  height: 548px;
+  min-height: 548px;
   line-height: 1.1;
 }
 
 .display {
-  height: 133px;
+  min-height: 135px;
   background-color: rgb(6, 21, 65);
   border: 8px solid ivory;
   color: white;
@@ -25,7 +25,7 @@
 }
 
 .display_history {
-  height: 30px;
+  min-height: 30px;
   font-size: 1.2em;
 }
 .display_current-value {
