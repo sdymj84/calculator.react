@@ -3,10 +3,8 @@ import './App.css';
 
 class App extends Component {
   state = {
-    isFirst: true,
     numbers: "",
     operators: [],
-    prevInput: "",
     history: "",
     result: 0,
     calculatedResult: 0,
@@ -29,9 +27,10 @@ class App extends Component {
   }
 
   updateDisplay = () => {
+    const lastNumber = this.getLastNumber()
     this.setState(state => ({
       history: this.makeHistory(state.numbers, state.operators),
-      result: this.getLastNumber(),
+      result: (lastNumber) ? lastNumber : 0,
     }))
   }
 
@@ -49,6 +48,8 @@ class App extends Component {
       switch (operators[operators.length - 2]) {
         case "+":
           return {
+            // history: (operators[operators.length - 1] === '=') ? "" :
+            //   this.makeHistory(state.numbers, state.operators),
             history: this.makeHistory(state.numbers, state.operators),
             calculatedResult: Number(state.calculatedResult) +
               Number(this.getLastNumber()),
@@ -91,23 +92,45 @@ class App extends Component {
           console.log("take care of unhandled button")
           break
       }
+    }, () => {
+      const operators = this.state.operators
+      if (operators[operators.length - 1] === '=') {
+        this.setState(state => ({
+          numbers: "",
+          operators: [],
+          history: "",
+        }))
+      }
     })
   }
+
+  // updateDisplayEqual = () => {
+  //   this.setState(state => ({
+  //     history: "",
+  //     result: this.getLastNumber(),
+  //   }), this.updateDisplayWithCal)
+  // }
 
 
   updateResult = (clickedButton) => {
     // if clicked "AC" button
     if (clickedButton === "AC") {
       this.setState({
-        isFirst: true,
         numbers: "",
         operators: [],
-        prevInput: "",
         history: "",
         result: 0,
         calculatedResult: 0,
       }, this.updateDisplay)
     }
+
+    // // if clicked "=" button
+    // if (clickedButton === "=") {
+    //   this.setState(state => ({
+    //     operators: state.operators.concat(clickedButton),
+    //     numbers: state.numbers.concat(","),
+    //   }), this.updateDisplayEqual)
+    // }
 
     // if clicked a NUMBER
     else if (!isNaN(clickedButton)) {
