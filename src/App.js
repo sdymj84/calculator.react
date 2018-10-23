@@ -115,7 +115,7 @@ class App extends Component {
     }
 
     // if clicked a NUMBER
-    else if (String(clickedButton).search("[0-9.]") >= 0) {
+    else if (String(clickedButton).search("[0-9]") >= 0) {
       let clickedNumber = clickedButton
       let currentNumber = 0
       this.setState(state => {
@@ -133,6 +133,10 @@ class App extends Component {
           return { numbers: arrNumber.toString() }
         }
       }, this.updateDisplay)
+    }
+
+    else if (String(clickedButton).search(".") >= 0) {
+
     }
 
     // if clicked a OPERATOR
