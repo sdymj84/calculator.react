@@ -50,11 +50,18 @@ class App extends Component {
           return {
             // history: (operators[operators.length - 1] === '=') ? "" :
             //   this.makeHistory(state.numbers, state.operators),
+
             history: this.makeHistory(state.numbers, state.operators),
             calculatedResult: Number(state.calculatedResult) +
               Number(this.getLastNumber()),
             result: Number(state.calculatedResult) +
               Number(this.getLastNumber()),
+
+            // history: this.makeHistory(state.numbers, state.operators),
+            // calculatedResult: Number(state.calculatedResult) +
+            //   Number(this.getLastNumber()),
+            // result: Number(state.calculatedResult) +
+            //   Number(this.getLastNumber()),
           }
         case "-":
           return {
@@ -99,7 +106,10 @@ class App extends Component {
           numbers: "",
           operators: [],
           history: "",
-        }))
+        }), () => {
+          console.log(Number(this.state.calculatedResult))
+          console.log(Number(this.getLastNumber()))
+        })
       }
     })
   }
@@ -145,10 +155,13 @@ class App extends Component {
       let clickedOperator = clickedButton
       this.setState(state => ({
         operators: state.operators.concat(clickedOperator),
-        numbers: state.numbers.concat(","),
+        // if first input is operator : 
+        //   store result in numbers so continue calculation after result
+        numbers: (state.numbers === "") ?
+          String(state.result).concat(",") :
+          state.numbers.concat(","),
       }), this.updateDisplayWithCal)
     }
-
   }
 
   render() {
