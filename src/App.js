@@ -135,8 +135,17 @@ class App extends Component {
       }, this.updateDisplay)
     }
 
+    // if clicked a POINT (.)
     else if (String(clickedButton).search(".") >= 0) {
-
+      let clickedOperator = clickedButton
+      this.setState(state => ({
+        operators: state.operators.concat(clickedOperator),
+        // if first input is operator : 
+        //   store result in numbers so continue calculation after result
+        numbers: (state.numbers === "") ?
+          String(state.result).concat(",") :
+          state.numbers.concat(","),
+      }), this.updateDisplay)
     }
 
     // if clicked a OPERATOR
