@@ -48,20 +48,11 @@ class App extends Component {
       switch (operators[operators.length - 2]) {
         case "+":
           return {
-            // history: (operators[operators.length - 1] === '=') ? "" :
-            //   this.makeHistory(state.numbers, state.operators),
-
             history: this.makeHistory(state.numbers, state.operators),
             calculatedResult: Number(state.calculatedResult) +
               Number(this.getLastNumber()),
             result: Number(state.calculatedResult) +
               Number(this.getLastNumber()),
-
-            // history: this.makeHistory(state.numbers, state.operators),
-            // calculatedResult: Number(state.calculatedResult) +
-            //   Number(this.getLastNumber()),
-            // result: Number(state.calculatedResult) +
-            //   Number(this.getLastNumber()),
           }
         case "-":
           return {
@@ -106,21 +97,10 @@ class App extends Component {
           numbers: "",
           operators: [],
           history: "",
-        }), () => {
-          console.log(Number(this.state.calculatedResult))
-          console.log(Number(this.getLastNumber()))
-        })
+        }))
       }
     })
   }
-
-  // updateDisplayEqual = () => {
-  //   this.setState(state => ({
-  //     history: "",
-  //     result: this.getLastNumber(),
-  //   }), this.updateDisplayWithCal)
-  // }
-
 
   updateResult = (clickedButton) => {
     // if clicked "AC" button
@@ -133,14 +113,6 @@ class App extends Component {
         calculatedResult: 0,
       }, this.updateDisplay)
     }
-
-    // // if clicked "=" button
-    // if (clickedButton === "=") {
-    //   this.setState(state => ({
-    //     operators: state.operators.concat(clickedButton),
-    //     numbers: state.numbers.concat(","),
-    //   }), this.updateDisplayEqual)
-    // }
 
     // if clicked a NUMBER
     else if (!isNaN(clickedButton)) {
