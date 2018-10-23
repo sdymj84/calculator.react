@@ -115,11 +115,24 @@ class App extends Component {
     }
 
     // if clicked a NUMBER
-    else if (!isNaN(clickedButton)) {
+    else if (String(clickedButton).search("[0-9.]") >= 0) {
       let clickedNumber = clickedButton
-      this.setState(state => ({
-        numbers: state.numbers.concat(clickedNumber),
-      }), this.updateDisplay)
+      let currentNumber = 0
+      this.setState(state => {
+        // to prevent leading zeros in number
+        // - convert the last input number to Number from String
+        // - and replace it to current last number which is String
+        currentNumber = Number(this.getLastNumber() + clickedNumber)
+        const arrNumber = state.numbers.split(",")
+
+        if (state.numbers.slice(-1) === ",") {
+          return { numbers: state.numbers.concat(clickedNumber) }
+        } else {
+          arrNumber.pop()
+          arrNumber.push(currentNumber)
+          return { numbers: arrNumber.toString() }
+        }
+      }, this.updateDisplay)
     }
 
     // if clicked a OPERATOR
