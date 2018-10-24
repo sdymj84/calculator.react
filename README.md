@@ -13,30 +13,35 @@
 
 ## 2. State
 ### (numbers, operators, history, result, calculatedResult)
-- numbers (string) : 
-- operators (array) : 
-- history (string) : 
-- result (number) : 
-- calculatedResult (number) : 
+- numbers (string) : concat newly input number, separate with "," between numbers so it can make array delimit with ','
+- operators (array) : push input operator
+- history (string) : add numbers and operators > store
+- calculatedResult (number) : when clicked operator, store calculated value between previous value and current value
+- result (number) : show it to display (either this'd be calculated result or use input value)
 ---
 
-## 3. Handle button click event - onButtonClick
+## 3. Handle button click event (onButtonClick)
 ### (When user clicks : AC / Numbers / Point / Operators)
-- AC : Initiate state values
-- Numbers : 
-- Point : 
-- Operators : 
+- AC : Initiate state values > then updateDisplay
+- Numbers : Put numbers into array > replace last number with current number so that prevent leading zeros > then updateDisplay
+  - (ex: prev 12,5 > input 6 > current 12,56)
+  - (ex: prev 12,0 > input 6 > current 12,6)
+- Point : concat '.' unless there's already '.' in numbers > then updateDisplay
+- Operators : push new operator to operators state > then updateDisplayWithCal
 ---
 
-## 4. Update display
-- Prevent leading zeros
-- Support continuous calculation (1 + 2 + 3 * 4 - 10 / ...)
-- 4 main conditions : user clicks Numbers / Operators / Equal / Point
-    - Numbers : 
+## 4. Update display (updateDisplay)
+- Just update current input number and history
 ---
 
-## 5. Update display after calculation
-- round off to 9 decimal places
+## 5. Update display after calculation (updateDisplayWithCal)
+- Calculate values based on clicked operator and update display
+---
+
+## 6. Issues
+- Float error 
+  - Detail : (0.1 + 0.2 = 0.3000004)
+  - Solution : Round off to 9 decimal places > Conver to Number
 ---
 
 # Limitation
