@@ -22,6 +22,7 @@
   color: white;
   text-align: right;
   padding: 10px;
+  position: relative;
 }
 
 .display_history {
@@ -30,6 +31,12 @@
 }
 .display_current-value {
   font-size: 4em;
+}
+.display_current-value_sm {
+  font-size: 2.5em;
+  position: absolute;
+  bottom: 15px;
+  right: 10px;
 }
 
 .button {
