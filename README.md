@@ -44,5 +44,14 @@
   - Solution : Round off to 9 decimal places > Conver to Number
 ---
 
+# Developer Notes
+- Tried to mimic the behavior of Windows7 calculator
+- Blocked leading zeros
+- Can keep calculate on the result continuously
+- Operator changes when input sequentially (3 * and + will become 3 +)
+- Operator can be input first (First number would be 0)
+- 3 * and "=" will result 3 * 3
+---
+
 # Limitation
  - show only 14 digits so large numbers that exeed 14 digits are not supported (I didn't think it's needed for this project level)

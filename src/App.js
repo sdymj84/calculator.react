@@ -38,11 +38,19 @@ class App extends Component {
     }))
   }
 
+  updateHistory = () => {
+    this.setState(state => ({
+      history: this.makeHistory(state.numbers, state.operators),
+    }))
+  }
+
   updateDisplayWithCal = () => {
     this.setState(state => {
       const operators = state.operators
       const x = Number(state.calculatedResult)
       const y = Number(this.getLastNumber())
+      console.log("x : " + x)
+      console.log("y : " + y)
       const history = this.makeHistory(state.numbers, state.operators)
 
       if (operators.length === 1) {
@@ -146,14 +154,22 @@ class App extends Component {
     // if clicked a OPERATOR
     else {
       let clickedOperator = clickedButton
-      this.setState(state => ({
-        operators: state.operators.concat(clickedOperator),
-        // if first input is operator : 
-        //   store result in numbers so continue calculation after result
-        numbers: (state.numbers === "") ?
-          String(state.result).concat(",") :
-          state.numbers.concat(","),
-      }), this.updateDisplayWithCal)
+      if (this.state.numbers[this.state.numbers.length - 1] === "," &&
+        clickedOperator !== "=") {
+        this.setState(state => ({
+          operators: state.operators.slice(0, -1).concat(clickedOperator)
+        }), this.updateHistory)
+      } else {
+        this.setState(state => ({
+          operators: state.operators.concat(clickedOperator),
+          // if first input is operator : 
+          //   store result in numbers so continue calculation after result
+          numbers: (state.numbers === "") ?
+            String(state.result).concat(",") :
+            (clickedOperator === "=") ? state.numbers : state.numbers.concat(","),
+        }), this.updateDisplayWithCal)
+      }
+
     }
   }
 
