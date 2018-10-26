@@ -49,8 +49,6 @@ class App extends Component {
       const operators = state.operators
       const x = Number(state.calculatedResult)
       const y = Number(this.getLastNumber())
-      console.log("x : " + x)
-      console.log("y : " + y)
       const history = this.makeHistory(state.numbers, state.operators)
 
       if (operators.length === 1) {

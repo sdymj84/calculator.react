@@ -1,5 +1,15 @@
 # calculator.react
 ### Simple calculator app built with React
+---
+
+# Developer Notes
+- Tried to mimic the behavior of Windows7 calculator
+- Blocked leading zeros
+- Can keep calculate on the result continuously
+- Operator changes when input sequentially (3 * and + will become 3 +)
+- Operator can be input first (First number would be 0)
+- 3 * and "=" will result 3 * 3
+---
 
 # How I've Developed It
 
@@ -42,15 +52,6 @@
 - Float error 
   - Detail : (0.1 + 0.2 = 0.3000004)
   - Solution : Round off to 9 decimal places > Conver to Number
----
-
-# Developer Notes
-- Tried to mimic the behavior of Windows7 calculator
-- Blocked leading zeros
-- Can keep calculate on the result continuously
-- Operator changes when input sequentially (3 * and + will become 3 +)
-- Operator can be input first (First number would be 0)
-- 3 * and "=" will result 3 * 3
 ---
 
 # Limitation
