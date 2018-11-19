@@ -1,5 +1,6 @@
 # calculator.react
 ### Simple calculator app built with React
+### checkout the live app here : [Calculator App](https://sdymj84.github.io/calculator.react/)
 ---
 
 # Developer Notes
