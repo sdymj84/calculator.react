@@ -10,6 +10,7 @@
 - Operator changes when input sequentially (3 * and + will become 3 +)
 - Operator can be input first (First number would be 0)
 - 3 * and "=" will result 3 * 3
+- Deployed on Github pages
 ---
 
 # How I've Developed It
